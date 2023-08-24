@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fire_atlas_editor/screens/editor_screen/widgets/delete_selection_modal.dart';
+import 'package:fire_atlas_editor/screens/editor_screen/widgets/rename_selection_modal.dart';
 import 'package:fire_atlas_editor/screens/editor_screen/widgets/selection_canvas/selection_form.dart';
 import 'package:fire_atlas_editor/store/actions/atlas_actions.dart';
 import 'package:fire_atlas_editor/store/actions/editor_actions.dart';
@@ -40,6 +41,9 @@ class SelectionList extends StatelessWidget {
 
         void select(BaseSelection selection) =>
             store.dispatch(SelectSelectionAction(selection: selection));
+
+        void rename(BaseSelection selection) =>
+            store.dispatch(RenameSelectionAction(selection: selection));
 
         return FContainer(
           padding: const EdgeInsets.all(5),
@@ -102,6 +106,22 @@ class SelectionList extends StatelessWidget {
                                         )
                                       else
                                         Container(),
+                                      FIconButton(
+                                        iconData: Icons.title,
+                                        onPress: () {
+                                          select(selection);
+                                          store.dispatch(
+                                            OpenEditorModal(
+                                              RenameSelectionModal(
+                                                selection: selection,
+                                              ),
+                                              300,
+                                              200,
+                                            ),
+                                          );
+                                        },
+                                        tooltip: 'Rename selection',
+                                      ),
                                       FIconButton(
                                         iconData: Icons.cancel,
                                         onPress: () {

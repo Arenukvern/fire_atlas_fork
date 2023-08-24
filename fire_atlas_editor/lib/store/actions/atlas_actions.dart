@@ -110,6 +110,10 @@ class SelectSelectionAction extends SlicesAction<FireAtlasState> {
   }
 }
 
+class RenameSelectionAction extends SetSelectionAction {
+  RenameSelectionAction({required super.selection});
+}
+
 class RemoveSelectedSelectionAction extends SlicesAction<FireAtlasState> {
   @override
   FireAtlasState perform(_, FireAtlasState state) {
